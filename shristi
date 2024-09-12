@@ -1,0 +1,290 @@
+\documentclass[letterpaper,10pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%
+%% BEGIN_FILE: mteck.sty
+%% NOTE: Everything between here and END_FILE can
+%% be relocated to "mteck.sty" and then included with:
+%\usepackage{mteck}
+
+% Dependencies
+% NOTE: Some packages (lastpage, hyperref) require second build!
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{graphicx} % For including images
+
+% Sans-Serif
+%\usepackage[sfdefault]{FiraSans}
+%\usepackage[sfdefault]{roboto}
+%\usepackage[sfdefault]{noto-sans}
+%\usepackage[default]{sourcesanspro}
+
+% Serif
+\usepackage{CormorantGaramond}
+\usepackage{charter}
+
+% Colors
+% Use with \color{Name}
+% Can wrap entire heading with {\color{accent} [...] }
+\usepackage{xcolor}
+\definecolor{accentTitle}{HTML}{0e6e55}
+\definecolor{accentText}{HTML}{0e6e55}
+\definecolor{accentLine}{HTML}{a16f0b}
+
+% Misc. Options
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\urlstyle{same}
+
+% Adjust Margins
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-0.7in}
+\addtolength{\textheight}{1.4in}
+
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\setlength{\tabcolsep}{0pt}
+\setlength{\footskip}{3.7pt}
+\raggedbottom
+\raggedright
+
+% ATS Readability
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+%-----------------%
+% Custom Commands %
+%-----------------%
+
+% Centered title along with subtitle between HR
+% Usage: \documentTitle{Name}{Details}
+\newcommand{\documentTitle}[2]{
+  \begin{center}
+    {\Huge\color{accentTitle} #1}
+    \vspace{10pt}
+    {\color{accentLine} \hrule}
+    \vspace{1pt}
+    \footnotesize{
+      \begin{tabbing}
+        \hspace{2.2in} \= \kill
+        \href{tel:+91 6387505024}{\raisebox{-0.5\height} \faPhone\ +91 6387505024} \hspace{15pt} \= 
+        \href{mailto:shristipatel63@gmail.com}{\raisebox{-0.15\height} \faEnvelope\ shristipatel63@gmail.com} \hspace{15pt} \= 
+        \includegraphics[height=10pt,keepaspectratio]{location.png} \hspace{1pt} Jaipur, Rajasthan \hspace{20pt} \= 
+        \href{https://www.linkedin.com/in/shristi-verma2811}{\raisebox{-0.15\height} \faLinkedin\ linkedin.com/in/shristi-verma2811} \
+        \\
+        \href{https://github.com/Shristi-Verma}{\raisebox{-0.15\height} \faGithub\ github.com/Shristi-Verma} \hspace{15pt} \= 
+        \href{https://leetcode.com/u/ShristiVerma2811/}{\raisebox{-0.15\height} \faSquare\ leetcode.com/ShristiVerma2811} \hspace{15pt} \= 
+        \href{https://www.hackerrank.com/profile/shristi2811}{\raisebox{-0.15\height} \faCode\ hackerrank.com/profile/shristi2811}
+      \end{tabbing}
+    }
+    \vspace{1pt}
+    {\color{accentLine} \hrule}
+  \end{center}
+}
+
+% Create a footer with correct padding
+% Usage: \documentFooter{\thepage of X}
+\newcommand{\documentFooter}[1]{
+  \setlength{\footskip}{10.25pt}
+  \fancyfoot[C]{\footnotesize #1}
+}
+
+% Simple wrapper to set up page numbering
+% Usage: \numberedPages
+% WARNING: Must run pdflatex twice!
+\newcommand{\numberedPages}{
+  \documentFooter{\thepage/\pageref{LastPage}}
+}
+
+% Section heading with horizontal rule
+% Usage: \section{Title}
+\titleformat{\section}{
+  \vspace{-5pt}
+  \color{accentText}
+  \raggedright\large\bfseries
+}{}{0em}{}[\color{accentLine}\titlerule]
+
+% Section heading with separator and content on same line
+% Usage: \tinysection{Title}
+\newcommand{\tinysection}[1]{
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}
+  {\large{\bfseries\color{accentText}#1} {\color{accentLine} |}}
+}
+
+% Indented line with arguments left/right aligned in document
+% Usage: \heading{Left}{Right}
+\newcommand{\heading}[2]{
+  \hspace{10pt}#1\hfill#2\\
+}
+
+% Adds \textbf to \heading
+\newcommand{\headingBf}[2]{
+  \heading{\textbf{#1}}{\textbf{#2}}
+}
+
+% Adds \textit to \heading
+\newcommand{\headingIt}[2]{
+  \heading{\textit{#1}}{\textit{#2}}
+}
+
+% Template for itemized lists
+% Usage: \begin{resume_list} [items] \end{resume_list}
+\newenvironment{resume_list}{
+  \vspace{-7pt}
+  \begin{itemize}[itemsep=-2px, parsep=1pt, leftmargin=30pt]
+}{
+  \end{itemize}
+}
+
+% Formats an item to use as an itemized title
+% Usage: \itemTitle{Title}
+\newcommand{\itemTitle}[1]{
+  \item[] \underline{#1}\vspace{4pt}
+}
+
+% Bullets used in itemized lists
+\renewcommand\labelitemi{--}
+
+%% END_FILE: mteck.sty
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+  %---------%
+  % Heading %
+  %---------%
+
+  \documentTitle{Shristi Verma}{
+    % This line has been moved to the custom command for improved readability.
+  }
+
+  %---------%
+  % Summary %
+  %---------%
+
+  \tinysection{Summary}
+  Aspiring computer science graduate with a solid foundation in programming, data structures, and algorithms. Proficient in C++, Java, and web technologies with hands-on experience in developing dynamic web applications.
+
+  %--------%
+  % Skills %
+  %--------%
+
+  \section{Technical Skills}
+
+  \begin{resume_list}
+    \itemTitle{\textbf{Languages -  }} C++, Java, C, HTML, CSS, JavaScript, SQL
+    \itemTitle{\textbf{Developer Tools - }} VS Code, Eclipse, Intelli-J, Android Studio
+    \itemTitle{\textbf{Technologies/Frameworks - }} GitHub, Git
+  \end{resume_list}
+
+  %------------%
+  % Projects %
+  %------------%
+
+  \section{Projects}
+
+  \headingBf{Responsive Portfolio}{}
+  \begin{resume_list}
+    \item Developed an interactive website using HTML, CSS, and JavaScript for dynamic user engagement.
+  \end{resume_list}
+  
+  \headingBf{KhetiVidhi Website}{}
+  \begin{resume_list}
+    \item Developed a product website for our platform KhetiVidhi using HTML, CSS, and JavaScript which designed to connect farmers directly with buyers, minimizing intermediaries and maximizing profits.
+  \end{resume_list}
+
+  %------------%
+  % Experience %
+  %------------%
+
+  \section{Experience}
+
+  \headingBf{Intern at Catalyst}{July 2, 2024 - September 4, 2024}
+  \begin{resume_list}
+    \item Contributed to the development of KhetiVidhi, a start-up application focused on agricultural innovation. 
+    \item Led a team in the design and implementation of features for a mobile application using Android Studio, XML, and Java.
+    \item Improved application functionality and user experience through effective problem-solving and innovative solutions.
+  \end{resume_list}
+
+  %-----------%
+  % Education %
+  %-----------%
+
+  \section{Education}
+
+  \headingBf{Global Institute of Technology, Jaipur, Rajasthan}{2025}
+  \headingIt{Bachelor of Technology in Computer Science}{Secured - 9.11 CGPA}
+
+  \headingBf{Anil Sarawati Vidya Mandir, Ayodhya, Uttar Pradesh}{2020}
+  \headingIt{Senior Secondary (CBSE Board)}{Secured - 74.8\%}
+
+  \headingBf{Narendra Deva DAV Sr. Sec. Public School, Ayodhya, Uttar Pradesh}{2018}
+  \headingIt{Secondary (CBSE Board)}{Secured - 85\%}
+
+\section{Certifications}
+
+\begin{resume_list}
+  \item \textbf{Problem Solving}  \textit{(Intermediate)}\hfill \textit{HackerRank}
+  \item \textbf{Database Management System} \hfill \textit{IIT Kharagpur (NPTEL)}
+  \item \textbf{Java}  \textit{(Basic)}, \hfill \textit{HackerRank}
+  \item \textbf{The joy of computing using Python} \hfill \textit{IIT Madras(NPTEL)}
+\end{resume_list}
+
+  %----------------------------%
+  % Achievements %
+  %----------------------------%
+
+%----------------------------%
+% Achievements %
+%----------------------------%
+\section{Achievements}
+
+\begin{resume_list}
+  \item \textbf{CODEFIESTA 2.0 Hackathon, }  \textit{\textbf{Global Institute of Technology, Jaipur - October 2023}}
+  \vspace{-0.1em} % Adjust this value for spacing if needed
+  \item Secured Second Runner-Up position. Contributed to a fintech solution, focusing on innovative financial technologies to improve user transactions and security.
+
+  \item \textbf{CODE RED 3.0 TRIATHLON, } \textit{\textbf{VGU, Jaipur - October 2023}}
+  \vspace{-0.1em} % Adjust this value for spacing if needed
+  \item Achieved a top 10 placement out of 370 teams. Developed and presented an agritech solution aimed at enhancing agricultural efficiency through technology-driven insights.
+
+  \item Earned the 100-Day Badge on LeetCode and solved over 400+ algorithmic problems, demonstrating strong problem-solving skills and commitment to continuous learning.
+\end{resume_list}
+
+
+  %-----------%
+  % Extra Curricular %
+  %-----------%
+
+  \section{Extra Curricular}
+
+  \begin{resume_list}
+    \item Head Coordinator in HR Conclave 2.0 organized by GIT, Jaipur.
+    \item Placement Coordinator at GIT, Jaipur.
+    \item Coordinator in the Intra College Drama Competition in GIT, Jaipur.
+    \item 5 Star Badge holder in C++ on HackerRank.
+    \item Solved 180+ questions on Code Studio.
+  \end{resume_list}
+  
+  %-----------%
+  % Languages %
+  %-----------%
+
+  \section{Languages}
+
+  \begin{resume_list}
+    \item Hindi 
+    \item English 
+  \end{resume_list}
+\end{document}
